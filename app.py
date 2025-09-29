@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Dict, Optional
+from typing import Dict
 import uuid
 from datetime import datetime
 
@@ -21,20 +21,14 @@ class AnalysisRequest(BaseModel):
     text: str
 
 class AnalysisResponse(BaseModel):
-    id: str
-    text: str
-    created_at: str
+    id: str = None
+    text: str = None
+    created_at: str = None
 
 @app.post("/analyze", response_model=AnalysisResponse)
 async def analyze_text(analysis: AnalysisRequest):
-    analysis_id = str(uuid.uuid4())
-    timestamp = datetime.utcnow().isoformat()
-    
-    result = {
-        "id": analysis_id,
-        "text": analysis.text,
-        "created_at": timestamp
-    }
-    
-    analyses[analysis_id] = result
-    return result
+    summary = get_analysis(analysis.text)
+    return {"text": summary}
+
+def get_analysis(text: str) -> str:
+    return "Summary of " + text
