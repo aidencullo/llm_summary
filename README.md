@@ -34,19 +34,30 @@ content-type: application/json
 - `422 Unprocessable Entity`: Invalid request format (e.g., missing required fields)
 - `500 Internal Server Error`: Server encountered an error
 
-1. Install dependencies using `uv` (faster alternative to pip):
+1. Set up your OpenAI API key:
    ```bash
-   uv pip install fastapi uvicorn
+   # On macOS/Linux
+   echo 'export OPENAI_API_KEY="your-api-key-here"' >> ~/.zshrc
+   source ~/.zshrc
+   
+   # On Windows (PowerShell)
+   [System.Environment]::SetEnvironmentVariable('OPENAI_API_KEY', 'your-api-key-here', 'User')
    ```
 
-2. Run the server:
+2. Install dependencies using `uv` (faster alternative to pip):
+   ```bash
+   uv pip install -e .
+   ```
+
+3. Run the server:
    ```bash
    uv run uvicorn app:app --reload
    ```
 
-3. The API will be available at `http://localhost:8000`
 
 ## Notes
 
 - Data is stored in memory and will be lost when the server restarts
 - CORS is enabled for all origins (`*`)
+- You need a valid OpenAI API key with access to GPT-4
+- Be aware of API rate limits and costs when using the OpenAI API
