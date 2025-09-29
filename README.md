@@ -34,14 +34,14 @@ content-type: application/json
 - `422 Unprocessable Entity`: Invalid request format (e.g., missing required fields)
 - `500 Internal Server Error`: Server encountered an error
 
-1. Install dependencies:
+1. Install dependencies using `uv` (faster alternative to pip):
    ```bash
-   pip install fastapi uvicorn
+   uv pip install fastapi uvicorn
    ```
 
 2. Run the server:
    ```bash
-   uvicorn app:app --reload
+   uv run uvicorn app:app --reload
    ```
 
 3. The API will be available at `http://localhost:8000`
