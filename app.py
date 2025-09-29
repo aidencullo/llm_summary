@@ -19,12 +19,10 @@ analyses: Dict[str, dict] = {}
 
 class AnalysisRequest(BaseModel):
     text: str
-    topic: str
 
 class AnalysisResponse(BaseModel):
     id: str
     text: str
-    topic: str
     created_at: str
 
 @app.post("/analyze", response_model=AnalysisResponse)
@@ -35,7 +33,6 @@ async def analyze_text(analysis: AnalysisRequest):
     result = {
         "id": analysis_id,
         "text": analysis.text,
-        "topic": analysis.topic,
         "created_at": timestamp
     }
     
