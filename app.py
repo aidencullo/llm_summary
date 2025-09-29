@@ -41,11 +41,3 @@ async def analyze_text(analysis: AnalysisRequest):
     
     analyses[analysis_id] = result
     return result
-
-@app.get("/search", response_model=List[AnalysisResponse])
-async def search_analyses(topic: str = Query(..., description="Topic to search for")):
-    matching_analyses = [
-        analysis for analysis in analyses.values() 
-        if topic.lower() in analysis["topic"].lower()
-    ]
-    return matching_analyses
